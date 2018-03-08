@@ -1,9 +1,13 @@
 body {
     background-color: #e0e0e0;
 }
-
+.main-body{
+    min-height: 100%;
+}
 .content{
+    min-height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -22,4 +26,33 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.temperature-label {
+    font-weight: bold;
+    font-size: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.temperature-value {
+    font-size: 1.5em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.data-acquired {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.data-acquired-label {
+    font-size: 1.5em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.data-acquired-value {
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
 }
