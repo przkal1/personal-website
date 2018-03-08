@@ -2,72 +2,24 @@ body {
     background-color: #e0e0e0;
 }
 
-.main-body{
-    width: 1000px;
-    height: 900px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin: -450px 0 0 -500px;	
-    background-image: url("money_700.png");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: 1000px 834px;
-}
-
-.content {
-    text-align: center;
-    width: 1000px;
-    height: 600px;
-    position: absolute;
-    left: 50%;
-    top: 40%;
-    margin: -300px 0 0 -500px;
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
-.main-photo {
-    border-radius: 50%;
-    display:block;
-    margin:auto;
-    border: 1px solid #474747;
+.temperatures {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-width:30%;
 }
 
-h1 {
-    font-size: 3em;
-    font-family: Verdana, Geneva, sans-serif;
-    color: #474747;
-}
-
-.account-label {
-    margin-top: 100px;
-    font-size: 1.4em;
-    font-family: Verdana, Geneva, sans-serif;
-    color: #474747;
-}
-
-.account {
-    font-family: Verdana, Geneva, sans-serif;
-    font-weight: bold;
-    font-size: 1.75em;
-    color: #474747;
-}
-
-.bank {
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: 1.2em;
-    color: #474747;
-}
-
-.hr {
-    border-bottom: 1px solid #474747;
-    z-index: -1;
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-    top: 125px;
-    width:100%;
+.temperature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

@@ -4,11 +4,33 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<title>Temperature</title>
 
+	    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+	    <script>
+		    $( document ).ready(function() {
+				$.get( "http://31.6.69.25:3000", function( data ) {
+					console.log(data);
+					$( "#main-room" ).html( data );
+				});
+		    });
+	    </script>
 	</head>
 	<body>
 		<div class="main-body">
 			<div class="content">
-                Temperature
+                <div class="temperatures">
+					<div class="temperature">
+	                	<div>Main room</div>
+	                	<div id="main-room">56</div>
+					</div>
+					<div class="temperature">
+	                	<div>Second room</div>
+	                	<div id="second-room">45</div>
+					</div>
+					<div class="temperature">
+	                	<div>Outside</div>
+	                	<div id="outside">34</div>
+					</div>
+				</div>
 			</div>
 		<div>
 	<body>
