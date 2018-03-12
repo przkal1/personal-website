@@ -7,6 +7,9 @@
 		<title>Temperature</title>
 
 	    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
 	    <script>
 		    $( document ).ready(function() {
 				$.get( "http://31.6.69.25:3000", function( data ) {
@@ -16,6 +19,54 @@
 
 					$( "#data-age" ).html( data.timeDiff / 1000);
 				});
+
+
+				$.get( "http://31.6.69.25:3000/historical?limit=5760&step=60", function( data ) {
+
+					var temp1HistoricalData = [];
+					var temp3HistoricalData = [];
+					var temp1HistoricalLabels = [];
+
+					for(var i = data.length-1;i >= 0;--i){
+						temp1HistoricalData.push(data[i].temp1);
+						temp3HistoricalData.push(data[i].temp3);
+
+						var date = new Date(Date.parse(data[i].timeStamp))
+						temp1HistoricalLabels.push(date.getHours());
+					}
+
+					var ctx = document.getElementById("myChart");
+					var myChart = new Chart(ctx, {
+						type: 'line',
+						data: {
+							labels: temp1HistoricalLabels,
+							datasets: [{
+								label: 'outside',
+								data: temp3HistoricalData,
+								backgroundColor: [
+									'rgba(10, 179, 230, 0.2)'
+								],
+								borderColor: [
+									'rgba(10,179,230,1)'
+								],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							responsive: true,
+							 maintainAspectRatio: false,
+							 scales: {
+								 yAxes: [{
+									 ticks: {
+										 beginAtZero:true
+									 }
+								 }]
+							 }
+						}
+					});
+				});
+
+
 		    });
 	    </script>
 	</head>
@@ -36,11 +87,13 @@
 	                	<div id="outside" class="temperature-value"></div>
 					</div>
 				</div>
-
+    
 				<div class="data-acquired">
 					<div class="data-acquired-label">Data age [s]</div>
 					<div id="data-age" class="data-acquired-value"></div>
 				</div>
+
+				<canvas id="myChart" style="max-height: 300px; max-width:1200px; padding-top: 40px;"></canvas>
 			</div>
 		<div>
 	<body>
