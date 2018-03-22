@@ -17,29 +17,44 @@
 					$( "#second-room" ).html( data.temp2  + " °C");
 					$( "#outside" ).html( data.temp3  + " °C");
 
-					$( "#data-age" ).html( data.timeDiff / 1000);
+					var dataAge = data.timeDiff / 1000;
+					$( "#data-age" ).html(dataAge);
+
+					if(dataAge > 60){
+						$( "#data-age" ).addClass("old-data-age");
+					}
+					else{
+						$( "#data-age" ).addClass("fresh-data-age");
+					}
 				});
 
 
-				$.get( "http://31.6.69.25:3000/historical?limit=5760&step=60", function( data ) {
-
+				$.get( "http://31.6.69.25:3000/historical?limit=2880&step=60", function( data ) {
 					var temp1HistoricalData = [];
+					var temp2HistoricalData = [];
 					var temp3HistoricalData = [];
-					var temp1HistoricalLabels = [];
+
+					var historicalLabels = [];
 
 					for(var i = data.length-1;i >= 0;--i){
 						temp1HistoricalData.push(data[i].temp1);
+						temp2HistoricalData.push(data[i].temp2);
 						temp3HistoricalData.push(data[i].temp3);
 
+
+
 						var date = new Date(Date.parse(data[i].timeStamp))
-						temp1HistoricalLabels.push(date.getHours());
+						historicalLabels.push(date.getHours());
 					}
 
-					var ctx = document.getElementById("myChart");
-					var myChart = new Chart(ctx, {
+					var outsideTempChartElement = document.getElementById("outsideTempChart");
+					var room1TempChartElement = document.getElementById("room1TempChart");
+					var room2TempChartElement = document.getElementById("room2TempChart");
+
+					var outsideTempChart = new Chart(outsideTempChartElement, {
 						type: 'line',
 						data: {
-							labels: temp1HistoricalLabels,
+							labels: historicalLabels,
 							datasets: [{
 								label: 'outside',
 								data: temp3HistoricalData,
@@ -64,9 +79,68 @@
 							 }
 						}
 					});
+
+					var room1TempChart = new Chart(room1TempChartElement, {
+						type: 'line',
+						data: {
+							labels: historicalLabels,
+							datasets: [{
+								label: 'room 1',
+								data: temp1HistoricalData,
+								backgroundColor: [
+									'rgba(21, 215, 65, 0.2)'
+								],
+								borderColor: [
+									'rgba(21,215,65, 1)'
+								],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							responsive: true,
+							 maintainAspectRatio: false,
+							 scales: {
+								 yAxes: [{
+									 ticks: {
+										 beginAtZero:true
+									 }
+								 }]
+							 }
+						}
+					});
+
+					var outsideTempChart = new Chart(room2TempChartElement, {
+						type: 'line',
+						data: {
+							labels: historicalLabels,
+							datasets: [{
+								label: 'room 2',
+								data: temp2HistoricalData,
+								backgroundColor: [
+									'rgba(236, 0, 6, 0.2)'
+								],
+								borderColor: [
+									'rgba(236, 0, 6, 1)'
+								],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							responsive: true,
+							 maintainAspectRatio: false,
+							 scales: {
+								 yAxes: [{
+									 ticks: {
+										 beginAtZero:true
+									 }
+								 }]
+							 }
+						}
+					});
+
+
+
 				});
-
-
 		    });
 	    </script>
 	</head>
@@ -87,13 +161,15 @@
 	                	<div id="outside" class="temperature-value"></div>
 					</div>
 				</div>
-    
+
 				<div class="data-acquired">
 					<div class="data-acquired-label">Data age [s]</div>
 					<div id="data-age" class="data-acquired-value"></div>
 				</div>
 
-				<canvas id="myChart" style="max-height: 300px; max-width:1200px; padding-top: 40px;"></canvas>
+				<canvas id="outsideTempChart" style="max-height: 200px; max-width:1200px; padding-top: 40px;"></canvas>
+				<canvas id="room1TempChart" style="max-height: 200px; max-width:1200px; padding-top: 20px;"></canvas>
+				<canvas id="room2TempChart" style="max-height: 200px; max-width:1200px; padding-top: 20px;"></canvas>
 			</div>
 		<div>
 	<body>
