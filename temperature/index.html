@@ -9,9 +9,12 @@
 	    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+		<script src="charts.js"></script>
 
 	    <script>
 		    $( document ).ready(function() {
+				Chart.plugins.register(verticalLinePlugin);
+
 				$.get( "http://31.6.69.25:3000", function( data ) {
 					$( "#main-room" ).html( data.temp1 + " °C");
 					$( "#second-room" ).html( data.temp2  + " °C");
@@ -35,18 +38,28 @@
 					var temp3HistoricalData = [];
 
 					var historicalLabels = [];
+					var dayDividerIndices = [];
 
-					for(var i = data.length-1;i >= 0;--i){
+					var j = 0; //for dayDividerIndices
+					for(var i = data.length-1; i >= 0; --i){
+					//for(var i = 0; i < data.length; ++i){
 						temp1HistoricalData.push(data[i].temp1);
 						temp2HistoricalData.push(data[i].temp2);
 						temp3HistoricalData.push(data[i].temp3);
 
+						var date = new Date(Date.parse(data[i].timeStamp));
+						var hours = date.getHours();
 
+						console.log(i + ': '+ hours);
 
-						var date = new Date(Date.parse(data[i].timeStamp))
-						historicalLabels.push(date.getHours());
+						historicalLabels.push(hours);
+
+						if(hours == 0){
+							dayDividerIndices.push(j)
+						}
+						j++;
 					}
-
+					console.log(dayDividerIndices);
 					var outsideTempChartElement = document.getElementById("outsideTempChart");
 					var room1TempChartElement = document.getElementById("room1TempChart");
 					var room2TempChartElement = document.getElementById("room2TempChart");
@@ -77,7 +90,8 @@
 									 }
 								 }]
 							 }
-						}
+						},
+						lineAtIndex: dayDividerIndices
 					});
 
 					var room1TempChart = new Chart(room1TempChartElement, {
@@ -106,7 +120,8 @@
 									 }
 								 }]
 							 }
-						}
+						},
+						lineAtIndex: dayDividerIndices
 					});
 
 					var outsideTempChart = new Chart(room2TempChartElement, {
@@ -135,11 +150,9 @@
 									 }
 								 }]
 							 }
-						}
+						},
+						lineAtIndex: dayDividerIndices
 					});
-
-
-
 				});
 		    });
 	    </script>
