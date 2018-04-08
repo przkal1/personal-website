@@ -19,6 +19,7 @@
 
 					var dataAge = data.timeDiff / 1000;
 					$( "#data-age" ).html(dataAge);
+					$( "#total-readings-count" ).html(data.totalReadingCount);
 
 					if(dataAge > 60){
 						$( "#data-age" ).addClass("old-data-age");
@@ -40,8 +41,6 @@
 						temp1HistoricalData.push(data[i].temp1);
 						temp2HistoricalData.push(data[i].temp2);
 						temp3HistoricalData.push(data[i].temp3);
-
-
 
 						var date = new Date(Date.parse(data[i].timeStamp))
 						historicalLabels.push(date.getHours());
@@ -162,11 +161,16 @@
 					</div>
 				</div>
 
-				<div class="data-acquired">
-					<div class="data-acquired-label">Data age [s]</div>
-					<div id="data-age" class="data-acquired-value"></div>
+				<div class="metadata">
+					<div class="metadata-entry">
+						<div class="metadata-label">Data age [s]</div>
+						<div id="data-age" class="metadata-value"></div>
+					</div>
+					<div class="metadata-entry">
+						<div class="metadata-label">Readings count</div>
+						<div id="total-readings-count" class="metadata-value"></div>
+					</div>
 				</div>
-
 				<canvas id="outsideTempChart" style="max-height: 200px; max-width:1200px; padding-top: 40px;"></canvas>
 				<canvas id="room1TempChart" style="max-height: 200px; max-width:1200px; padding-top: 20px;"></canvas>
 				<canvas id="room2TempChart" style="max-height: 200px; max-width:1200px; padding-top: 20px;"></canvas>
