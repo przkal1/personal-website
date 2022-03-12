@@ -15,7 +15,7 @@
 		    $( document ).ready(function() {
 				Chart.plugins.register(verticalLinePlugin);
 
-				$.get( "http://31.6.69.25:3000", function( data ) {
+				$.get( "http://185.24.219.86:3000", function( data ) {
 					$( "#main-room" ).html( data.temp1 + " °C");
 					$( "#second-room" ).html( data.temp2  + " °C");
 					$( "#outside" ).html( data.temp3  + " °C");
@@ -33,7 +33,7 @@
 				});
 
 
-				$.get( "http://31.6.69.25:3000/historical?limit=2880&step=60", function( data ) {
+				$.get( "http://185.24.219.86:3000/historical?limit=2880&step=60", function( data ) {
 					var temp1HistoricalData = [];
 					var temp2HistoricalData = [];
 					var temp3HistoricalData = [];
