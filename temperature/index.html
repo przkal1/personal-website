@@ -16,9 +16,9 @@
 				Chart.plugins.register(verticalLinePlugin);
 
 				$.get( "http://185.24.219.86:3000", function( data ) {
-					$( "#main-room" ).html( data.temp1 + " °C");
-					$( "#second-room" ).html( data.temp2  + " °C");
-					$( "#outside" ).html( data.temp3  + " °C");
+					$( "#reading1" ).html( data.temp1 + " °C");
+					$( "#reading2" ).html( data.temp2  + " °C");
+					$( "#reading3" ).html( data.temp3  + " °C");
 
 					var dataAge = data.timeDiff / 1000;
 					$( "#data-age" ).html(dataAge);
@@ -56,17 +56,17 @@
 						}
 						j++;
 					}
-					var outsideTempChartElement = document.getElementById("outsideTempChart");
-					var room1TempChartElement = document.getElementById("room1TempChart");
-					var room2TempChartElement = document.getElementById("room2TempChart");
+					var reading1ChartElement = document.getElementById("reading1Chart");
+					var reading2ChartElement = document.getElementById("reading2Chart");
+					var reading3ChartElement = document.getElementById("reading3Chart");
 
-					var outsideTempChart = new Chart(outsideTempChartElement, {
+					var reading1Chart = new Chart(reading1ChartElement, {
 						type: 'line',
 						data: {
 							labels: historicalLabels,
 							datasets: [{
-								label: 'Na zewnątrz',
-								data: temp3HistoricalData,
+								label: 'Salon',
+								data: temp1HistoricalData,
 								backgroundColor: [
 									'rgba(10, 179, 230, 0.2)'
 								],
@@ -90,13 +90,13 @@
 						lineAtIndex: dayDividerIndices
 					});
 
-					var room1TempChart = new Chart(room1TempChartElement, {
+					var reading2Chart = new Chart(reading2ChartElement, {
 						type: 'line',
 						data: {
 							labels: historicalLabels,
 							datasets: [{
-								label: 'Kuchnia',
-								data: temp1HistoricalData,
+								label: 'Biuro',
+								data: temp2HistoricalData,
 								backgroundColor: [
 									'rgba(21, 215, 65, 0.2)'
 								],
@@ -120,13 +120,13 @@
 						lineAtIndex: dayDividerIndices
 					});
 
-					var outsideTempChart = new Chart(room2TempChartElement, {
+					var reading3Chart = new Chart(reading3ChartElement, {
 						type: 'line',
 						data: {
 							labels: historicalLabels,
 							datasets: [{
-								label: 'Pokój',
-								data: temp2HistoricalData,
+								label: 'Sypialnia',
+								data: temp3HistoricalData,
 								backgroundColor: [
 									'rgba(236, 0, 6, 0.2)'
 								],
@@ -158,16 +158,16 @@
 			<div class="content">
                 <div class="temperatures">
 					<div class="temperature">
-	                	<div class="temperature-label">Kuchnia</div>
-	                	<div id="main-room" class="temperature-value"></div>
+	                	<div class="temperature-label">Salon</div>
+	                	<div id="reading1" class="temperature-value"></div>
 					</div>
 					<div class="temperature">
-	                	<div class="temperature-label">Pokój</div>
-	                	<div id="second-room" class="temperature-value"></div>
+	                	<div class="temperature-label">Biuro</div>
+	                	<div id="reading2" class="temperature-value"></div>
 					</div>
 					<div class="temperature">
-	                	<div class="temperature-label">Na zewnątrz</div>
-	                	<div id="outside" class="temperature-value"></div>
+	                	<div class="temperature-label">Sypialnia</div>
+	                	<div id="reading3" class="temperature-value"></div>
 					</div>
 				</div>
 
@@ -181,9 +181,9 @@
 						<div id="total-readings-count" class="metadata-value"></div>
 					</div>
 				</div>
-				<canvas id="outsideTempChart" style="max-height: 200px; max-width:1200px; padding-top: 40px;"></canvas>
-				<canvas id="room1TempChart" style="max-height: 200px; max-width:1200px; padding-top: 20px;"></canvas>
-				<canvas id="room2TempChart" style="max-height: 200px; max-width:1200px; padding-top: 20px;"></canvas>
+				<canvas id="reading1Chart" style="max-height: 200px; max-width:1200px; padding-top: 40px;"></canvas>
+				<canvas id="reading2Chart" style="max-height: 200px; max-width:1200px; padding-top: 20px;"></canvas>
+				<canvas id="reading3Chart" style="max-height: 200px; max-width:1200px; padding-top: 20px;"></canvas>
 			</div>
 		<div>
 	<body>
